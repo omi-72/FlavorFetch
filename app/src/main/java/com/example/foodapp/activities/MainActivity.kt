@@ -5,14 +5,24 @@ package com.example.foodapp.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.foodapp.R
 import com.example.foodapp.databinding.ActivityMainBinding
+import com.example.foodapp.db.MealDatabase
 import com.example.foodapp.fragment.CatagoryFragment
 import com.example.foodapp.fragment.FavoritesFragment
 import com.example.foodapp.fragment.HomeFragment
+import com.example.foodapp.viewmodel.HomeViewModel
+import com.example.foodapp.viewmodel.HomeViewModelFactory
 
 
 class MainActivity : AppCompatActivity() {
+    val viewModel : HomeViewModel by lazy {
+        val mealDatabase = MealDatabase.getInstance(this)
+        val homeViewModelProviderFactory = HomeViewModelFactory(mealDatabase)
+        ViewModelProvider(this,homeViewModelProviderFactory)[HomeViewModel::class.java]
+    }
+
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
