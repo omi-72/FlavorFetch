@@ -6,25 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".activities.CategoryMealsActivity">
 
-    <TextView
-        android:id="@+id/textViewCategoryCount"
-        android:fontFamily="@font/myfont"
-        android:textSize="15sp"
-        android:textColor="@color/accent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="5dp"/>
+<!--    <TextView-->
+<!--        android:id="@+id/textViewCategoryCount"-->
+<!--        android:fontFamily="@font/myfont"-->
+<!--        android:textSize="15sp"-->
+<!--        android:textColor="@color/accent"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:layout_marginTop="5dp"/>-->
 
+    <LinearLayout
+        android:id="@+id/linearHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvHome"
+            android:layout_weight="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories Item"
+            android:textColor="@color/accent"
+            android:fontFamily="@font/myfont"
+            android:textStyle="bold"
+            android:textSize="25sp"/>
+
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMeals"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewCategoryCount"
+        app:layout_constraintTop_toBottomOf="@id/linearHeader"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

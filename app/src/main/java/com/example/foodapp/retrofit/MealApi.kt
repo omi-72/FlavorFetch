@@ -1,6 +1,7 @@
 package com.example.foodapp.retrofit
 
 import com.example.foodapp.pojo.CategoryList
+import com.example.foodapp.pojo.Meal
 import com.example.foodapp.pojo.MealsByCategoryList
 import com.example.foodapp.pojo.MealList
 import com.example.foodapp.pojo.MealsByCategory
@@ -23,4 +24,7 @@ interface MealApi {
 
     @GET("filter.php")
     fun getMealsByCategory(@Query("c") categoryName: String) : Call<MealsByCategoryList>
+
+    @GET("search.php")
+    fun searchMeals(@Query("s") searchQuery: String): Call<MealList>
 }

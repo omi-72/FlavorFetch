@@ -47,9 +47,11 @@ class MealActivity : AppCompatActivity() {
     }
 
     private fun onFavoriteClick() {
-        binding.addToFav.setOnClickListener {
+        binding.addToFavWhite.setOnClickListener {
            mealToSave?.let {
                mealMvvm.insertMeal(it)
+               binding.addToFavWhite.visibility = View.INVISIBLE
+               binding.addToFav.visibility = View.VISIBLE
                Toast.makeText(this, "Meal Saved", Toast.LENGTH_SHORT).show()
            }
         }

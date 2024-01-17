@@ -30,7 +30,8 @@ class CategoryMealsActivity : AppCompatActivity() {
 
         categoryMealsViewModel.observerMealsLiveData().observe(this, Observer { mealsList ->
 
-            binding.textViewCategoryCount.text = mealsList.size.toString()
+         //   binding.textViewCategoryCount.text = mealsList.size.toString()
+          //  binding.textViewCategoryCount.text = mealsList.
             categoryMealsAdapter.setMealsList(mealsList)
         })
 

@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Query
 
 class HomeViewModel(
     private var mealDatabase: MealDatabase
@@ -26,13 +27,22 @@ class HomeViewModel(
     private var categoriesLiveData = MutableLiveData<List<Category>>()
     private var favoriteMealsLiveData = mealDatabase.mealDao().getAllMeals()
     private var bottomSheetMealLiveData = MutableLiveData<Meal>()
+    private var searchedMealsLiveData = MutableLiveData<List<Meal>>()
 
+   private var saveStateRandomMeal : Meal? = null
     fun getRandomMeal(){
+        saveStateRandomMeal?.let { randomMeal ->
+            randomMealLiveData.postValue(randomMeal)
+            return
+
+        }
         RetrofitInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
                 if (response.body() != null){
                     val randomMeal : Meal = response.body()!!.meals[0]
+
                     randomMealLiveData.value = randomMeal
+                    saveStateRandomMeal = randomMeal
 
                     // Log.d("TEST", "meal id ${randomMeal.idMeal} name ${randomMeal.strMeal}")
                 }else{
@@ -103,6 +113,23 @@ class HomeViewModel(
             mealDatabase.mealDao().update(meal)
         }
     }
+
+    fun searchMeals(searchQuery: String) = RetrofitInstance.api.searchMeals(searchQuery)
+        .enqueue(object : Callback<MealList>{
+            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+                val mealList = response.body()?.meals
+                mealList?.let {
+                    searchedMealsLiveData.postValue(it)
+                }
+            }
+
+            override fun onFailure(call: Call<MealList>, t: Throwable) {
+                Log.d("HomeViewModel", t.message.toString())
+            }
+
+        })
+
+    fun observerSearchMealLiveData():LiveData<List<Meal>> = searchedMealsLiveData
 
     fun observeRandomMealLiveData():LiveData<Meal>{
         return randomMealLiveData
